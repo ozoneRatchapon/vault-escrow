@@ -1,13 +1,8 @@
-use anchor_lang::{
-    prelude::*,
-    system_program::{transfer, Transfer},
-};
-
+use anchor_lang::prelude::*;
 pub mod instructions;
 pub mod state;
 
 use crate::instructions::*;
-use crate::state::*;
 
 declare_id!("3cEBFGTEPx7ybv4jw1vGDnodqEu65HWWfepr3AcurtGP");
 
