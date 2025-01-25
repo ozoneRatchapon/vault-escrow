@@ -32,20 +32,32 @@ pub mod vault {
 }
 
 pub mod escrow {
-    // use super::*;
+    use super::*;
 
-    // pub fn make(ctx: Context<Make>, seed: u64, receive_amount: u64) -> Result<()> {
-    //     ctx.accounts
-    //         .init_escrow_state(seed, receive_amount, ctx.bumps)?;
-    //     ctx.accounts.deposit(deposit_amount)?;
-    //     Ok(())
-    // }
+    pub fn make(
+        ctx: Context<Make>,
+        seed: u64,
+        receive_amount: u64,
+        deposit_amount: u64,
+    ) -> Result<()> {
+        ctx.accounts
+            .init_escrow_state(seed, receive_amount, ctx.bumps)?;
+        ctx.accounts.deposit(deposit_amount)?;
+        Ok(())
+    }
 
-    // // taker wants to swap there tokens
-    // // you do not need to store them in your vault
+    // taker wants to swap there tokens
+    // you do not need to store them in your vault
     // just swap!
-    // pub fn take(ctx: Context<Take>, amount: u64) -> Result<()> {
-    //     ctx.accounts.take(amount)?;
-    //     Ok(())
-    // }
+    pub fn take(ctx: Context<Take>) -> Result<()> {
+        ctx.accounts.withdraw()?;
+        ctx.accounts.close()?;
+        Ok(())
+    }
+
+    pub fn refund(ctx: Context<Refund>) -> Result<()> {
+        ctx.accounts.withdraw()?;
+        ctx.accounts.close()?;
+        Ok(())
+    }
 }

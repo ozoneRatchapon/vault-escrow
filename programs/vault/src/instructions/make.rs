@@ -7,7 +7,7 @@ use anchor_spl::{
 use crate::state::EscrowState;
 
 #[derive(Accounts)]
-#[instruction(seeds: u64)] // make sure seeds is the first field
+#[instruction(seed: u64)] // make sure seeds is the first field
 pub struct Make<'info> {
     #[account(mut)]
     pub maker: Signer<'info>,
@@ -23,7 +23,7 @@ pub struct Make<'info> {
         init,
         payer = maker,
         space = EscrowState::INIT_SPACE+8,
-        seeds = [b"escrow", maker.key.as_ref(), seed.to_le_bytes().as_ref()],
+        seeds = [b"escrow", maker.key.as_ref(),seed.to_le_bytes().as_ref()],
         bump
     )]
     pub escrow: Account<'info, EscrowState>,
